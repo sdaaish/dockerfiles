@@ -14,6 +14,10 @@ To build and run from git:
    $myvar=(Convert-Path .digrc ) -replace "c:","/c" -replace "\\","/"
    docker run --rm -v ${myvar}:/.digrc sdaaish/bindtools dig linux.com
  #+END_SRC
+Or a more complete version:
+#+BEGIN_SRC powershell
+  docker run --rm -v ${myvar}:/.digrc sdaaish/bindtools dig linux.com a linux.com ns linux.com mx
+#+END_SRC
 *** Dockerhub
  To download from *Dockerhub*:
  #+BEGIN_SRC powershell
