@@ -1,0 +1,45 @@
+#+OPTIONS: toc:nil
+* Bind-utils
+An Alpine image with bind-tools installed. (dig, nslookup, host, etc). Runs as an unprivileged account.
+
+** Usage
+To build and run from git:
+#+BEGIN_SRC powershell
+  docker build -t bindtools:latest .
+  docker run --rm bindtools dig linux.com
+#+END_SRC
+*** .digrc
+ To use a =.digrc=-file (in powershell):
+ #+BEGIN_SRC powershell
+   $myvar=(Convert-Path .digrc ) -replace "c:","/c" -replace "\\","/"
+   docker run --rm -v ${myvar}:/.digrc sdaaish/bindtools dig linux.com
+ #+END_SRC
+Or a more complete version:
+#+BEGIN_SRC powershell
+  docker run --rm -v ${myvar}:/.digrc sdaaish/bindtools dig linux.com a linux.com ns linux.com mx
+#+END_SRC
+*** Dockerhub
+ To download from *Dockerhub*:
+ #+BEGIN_SRC powershell
+   docker pull sdaaish/bindtools
+   docker run --rm sdaaish/bindtools dig linux.com
+ #+END_SRC
+** Content
+#+BEGIN_EXAMPLE
+# apk info -L bind-tools
+bind-tools-9.12.2_p1-r0 contains:
+usr/sbin/dnssec-settime
+usr/sbin/dnssec-dsfromkey
+usr/sbin/dnssec-keygen
+usr/sbin/dnssec-verify
+usr/sbin/dnssec-signzone
+usr/sbin/dnssec-importkey
+usr/sbin/dnssec-keyfromlabel
+usr/sbin/dnssec-cds
+usr/sbin/dnssec-revoke
+usr/bin/host
+usr/bin/dig
+usr/bin/nsupdate
+usr/bin/nslookup
+usr/bin/delv
+#+END_EXAMPLE
