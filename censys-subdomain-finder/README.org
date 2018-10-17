@@ -1,0 +1,38 @@
+#+OPTIONS: toc:nil
+* Censys Subdomain Finder
+
+- Info: https://www.kitploit.com/2018/10/censys-subdomain-finder-perform.html?amp=0
+- Source: https://github.com/christophetd/censys-subdomain-finder.git
+- Dockerfile: https://github.com/sdaaish/dockerfiles/tree/master/censys-subdomain-finder
+
+Run with:
+#+BEGIN_SRC sh
+docker run --rm \
+-e CENSYS_API_ID=<api-id> \
+-e CENSYS_API_SECRET=<api_secret> \
+sdaaish/censys_subdomain_finder <domain-name>
+#+END_SRC
+
+** Help
+#+BEGIN_EXAMPLE
+sdaaish/censys_subdomain_finder:latest
+usage: censys_subdomain_finder.py [-h] [-o OUTPUT_FILE]
+                                  [--censys-api-id CENSYS_API_ID]
+                                  [--censys-api-secret CENSYS_API_SECRET]
+                                  domain
+
+positional arguments:
+  domain                The domain to scan
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -o OUTPUT_FILE, --output OUTPUT_FILE
+                        A file to output the list of subdomains to (default:
+                        None)
+  --censys-api-id CENSYS_API_ID
+                        Censys API ID. Can also be defined using the
+                        CENSYS_API_ID environment variable (default: None)
+  --censys-api-secret CENSYS_API_SECRET
+                        Censys API secret. Can also be defined using the
+                        CENSYS_API_SECRET environment variable (default: None)
+#+END_EXAMPLE
