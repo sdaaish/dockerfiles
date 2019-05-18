@@ -1,0 +1,6 @@
+* svtplay-dl
+Runs svtplay, a downloader for media.
+** Usage
+#+BEGIN_SRC sh
+docker run --rm -it -v ~/Video:/data svtplay-dl:latest
+#+END_SRC
