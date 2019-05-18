@@ -17,7 +17,6 @@ COPY src/ /mha/
 RUN  pip install -r /mha/requirements.txt --no-cache-dir
 
 WORKDIR /mha
-EXPOSE 8080
 
 ENTRYPOINT ["python", "/mha/server.py"]
 CMD ["--help"]
