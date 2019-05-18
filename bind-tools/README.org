@@ -27,7 +27,7 @@ Or a more complete version:
 ** Content
 #+BEGIN_EXAMPLE
 # apk info -L bind-tools
-bind-tools-9.12.2_p1-r0 contains:
+bind-tools-9.12.4_p1-r1 contains:
 usr/sbin/dnssec-settime
 usr/sbin/dnssec-dsfromkey
 usr/sbin/dnssec-keygen
