@@ -1,3 +1,4 @@
+#+OPTIONS: toc:nil
 * sublist3r
 Lists subdomains from various sources.
 ** Usage
