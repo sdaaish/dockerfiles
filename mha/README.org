@@ -1,0 +1,15 @@
+#+OPTIONS: toc:nil
+* Mail Header Analyzer
+An Alpine image with MHA installed.
+
+** Usage
+To build and run from git:
+#+BEGIN_SRC powershell
+  docker build -t mha:latest .
+  docker run --rm -p 8080:8080 mha -b 0.0.0.0 -p 8080
+#+END_SRC
+or run directly:
+#+begin_src sh
+  docker run --rm -p 8080:8080 sdaaish/mha:latest  -b 0.0.0.0 -p 8080
+#+end_src
+Open http://localhost:8080 in a browser.

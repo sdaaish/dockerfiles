@@ -1,0 +1,20 @@
+#+OPTIONS: toc:nil
+* testssl.sh
+An Alpine image with ~testssl.sh~. To test SSL and ciphers.
+
+** Usage
+To run this:
+#+begin_src sh
+docker run --rm sdaaish/testssl.sh example.org
+#+end_src
+Or with a separate input file and output to a directory:
+#+begin_src sh
+docker run --rm -v $(pwd)/input:/home/testssl/input -v $(pwd)/reports:/home/testssl/reports testssl.sh --file input/infile
+#+end_src
+*** Infile syntax
+~cat input/infile~
+#+begin_example
+-H  --csvfile reports linux.com
+-H  --csvfile reports https://www.linux.com:443
+-H --jsonfile reports --logfile reports --htmlfile reports --csvfile reports https://www.freebsd.com:443
+#+end_example

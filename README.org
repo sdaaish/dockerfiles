@@ -1,6 +1,3 @@
 * Dockerfiles
 ** Repository with dockerfiles
-*** svtplay-dl
-#+BEGIN_SRC sh
-docker run --rm -it -v ~/Video:/data svtplay-dl:latest
-#+END_SRC
+A collection of dockerfiles.
