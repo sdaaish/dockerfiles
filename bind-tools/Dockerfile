@@ -4,8 +4,9 @@
 FROM alpine:latest
 LABEL maintainer="sdaaish@charlottendal.net"
 
-RUN apk update && apk add bind-tools \
-  && addgroup dig && adduser -h / -G dig -H -D dig
+RUN apk add --update --no-cache \
+  bind-tools && \
+  addgroup dig && adduser -h / -G dig -H -D dig
 
 USER dig:dig
 ENTRYPOINT ["dig"]

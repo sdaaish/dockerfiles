@@ -9,14 +9,13 @@
 
 FROM alpine:latest
 
-RUN apk update && \
-  apk upgrade && \
-  apk add python py2-pip
+RUN apk add --update --no-cache \
+  python3 py3-pip
 
 COPY src/ /app/
 WORKDIR /app
 
 RUN pip install -r requirements.txt --no-cache-dir
 
-ENTRYPOINT ["python", "./sublist3r.py"]
+ENTRYPOINT ["python3", "./sublist3r.py"]
 CMD ["--help"]

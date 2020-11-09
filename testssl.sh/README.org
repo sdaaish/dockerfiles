@@ -7,6 +7,10 @@ To run this:
 #+begin_src sh
 docker run --rm sdaaish/testssl.sh example.org
 #+end_src
+Fast run with limited tests:
+#+begin_src sh
+docker run --rm sdaaish/testssl.sh --fast -S --hints --quiet example.org
+#+end_src
 Or with a separate input file and output to a directory:
 #+begin_src sh
 docker run --rm -v $(pwd)/input:/home/testssl/input -v $(pwd)/reports:/home/testssl/reports testssl.sh --file input/infile
@@ -18,3 +22,5 @@ docker run --rm -v $(pwd)/input:/home/testssl/input -v $(pwd)/reports:/home/test
 -H  --csvfile reports https://www.linux.com:443
 -H --jsonfile reports --logfile reports --htmlfile reports --csvfile reports https://www.freebsd.com:443
 #+end_example
+** Help
+For more info, see the [[file:HELP.md][Help-file]].
