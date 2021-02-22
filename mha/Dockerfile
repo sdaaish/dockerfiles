@@ -17,5 +17,5 @@ RUN  pip install -r /mha/requirements.txt --no-cache-dir
 
 WORKDIR /mha
 
-ENTRYPOINT ["python", "/mha/server.py"]
+ENTRYPOINT ["python3", "/mha/server.py"]
 CMD ["--help"]
