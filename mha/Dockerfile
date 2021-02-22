@@ -9,9 +9,8 @@
 
 FROM alpine:latest
 
-RUN apk update && \
-  apk upgrade && \
-  apk add python py2-pip
+RUN apk add --update --no-cache \
+  python3 py3-pip py3-yarl
 
 COPY src/ /mha/
 RUN  pip install -r /mha/requirements.txt --no-cache-dir

@@ -12,9 +12,8 @@
  
 FROM alpine:latest
 
-RUN apk update && \
-  apk upgrade && \
-  apk add python py2-pip
+RUN apk add --update --no-cache \
+  python3 py3-pip
 
 COPY src/requirements.txt src/*.py /app/
 WORKDIR /app
