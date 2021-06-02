@@ -14,12 +14,18 @@ EXPOSE 30001
 
 WORKDIR /root
 VOLUME "/root/src"
+
 # Install packages
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
     apt-get update && apt-get install --yes --no-install-recommends \
     ca-certificates curl apt-utils gdebi php postgresql apache2 sudo
+
+# Download the package
+FROM base as src
 RUN curl -o capanalysis_1.2.3_amd64.deb "https://altushost-swe.dl.sourceforge.net/project/capanalysis/version%201.2.3/capanalysis_1.2.3_amd64.deb"
 
+# Install package and dependencies
+FROM src as app
 RUN gdebi --n capanalysis_1.2.3_amd64.deb && \
     apt-get remove --yes curl gdebi apt-utils && \
     apt-get clean --yes && \ 
