@@ -7,12 +7,17 @@
 # docker run --rm \
 # sdaaish/sublist3r -d <domain-name>
 
-FROM alpine:latest
-
+FROM alpine:latest AS build 
 RUN apk add --update --no-cache \
-  python3 py3-pip
+    git && \
+    git clone https://github.com/aboul3la/Sublist3r.git /src
 
-COPY src/ /app/
+FROM alpine:latest
+COPY --from=build src/ /app/
+RUN apk add --update --no-cache \
+    python3 \
+    py3-pip
+
 WORKDIR /app
 
 RUN pip install -r requirements.txt --no-cache-dir
