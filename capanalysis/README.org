@@ -1,0 +1,11 @@
+#+OPTIONS: toc:nil
+* CapAnalysis
+Import pcap-files and visualize flows.
+** Usage
+#+begin_src sh
+docker run --rm  -p 9877:9877 sdaaish/capanalysis:latest
+#+end_src
+** Links
+[[https://www.capanalysis.net/ca/][CapAnalysis homepage]]
+[[https://github.com/xplico/CapAnalysis][Github]]
+[[https://docs.microsoft.com/en-us/azure/network-watcher/network-watcher-using-open-source-tools][Visualize trafic in Azure]]
