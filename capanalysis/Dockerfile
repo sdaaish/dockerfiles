@@ -1,4 +1,12 @@
-# Under development
+#
+# CapAnalysis
+#
+# Source: https://github.com/xplico/CapAnalysis
+#
+# A docker image for capanalysis
+# Run with:
+# docker run --rm \
+#  -p 9877:9877 sdaaish/capanalysis:latest
 
 # Based on https://github.com/fjacquet/dockerfiles/blob/master/capanalysis/Dockerfile
 FROM ubuntu:18.04 as base
