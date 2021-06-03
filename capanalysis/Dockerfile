@@ -24,14 +24,39 @@ RUN ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && \
     apt-get install --yes --no-install-recommends \
     ca-certificates \
     curl \
+    wget \
     apt-utils \
-    gdebi \
     php \
     postgresql \
     apache2 \
     sudo \
     whois \
-    netcat-openbsd
+    netcat-openbsd \
+    libgeoip1 \
+    libpcap0.8 \
+    libpq5 \
+    libssl1.1 \
+    zlib1g \
+    tshark \
+    samba \
+    apache2 \
+    php-common \
+    libapache2-mod-php \
+    php-sqlite3 \
+    php-pgsql \
+    php-cli \
+    sqlite3 \
+    openssl \
+    postgresql \
+    postgresql-client \
+    php-mdb2-driver-pgsql \
+    tar \
+    php-json \
+    libgeoip-dev \
+    libndpi-dev \
+    libjson-c-dev \
+    zip \
+    unzip
 
 # Download the package
 FROM base as src
@@ -40,7 +65,8 @@ RUN curl -o /root/capanalysis.deb "https://pilotfiber.dl.sourceforge.net/project
 # Install package and dependencies
 FROM src as app
 COPY ./cfg/cleanup.sh /root/bin/cleanup.sh
-RUN gdebi --n /root/capanalysis.deb && \
+RUN dpkg --install /root/capanalysis.deb && \
+    apt-get --fix-broken install --yes && \
     apt-get clean --yes && \
     apt-get autoremove --yes && \
     rm -f /root/capanalysis.deb && \
