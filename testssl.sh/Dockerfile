@@ -14,10 +14,15 @@
 # -v $(pwd)/reports:/home/testssl/reports \
 # testssl.sh --file input/infile
 
-FROM alpine:latest
-
+FROM alpine:latest AS build
 RUN apk add --update --no-cache \
-  bash procps drill git coreutils curl
+    git && \
+    git clone --depth=1 https://github.com/drwetter/testssl.sh.git /src
+
+FROM alpine:latest
+COPY --from=build /src /home/testssl/
+RUN apk add --update --no-cache \
+    bash procps drill coreutils curl
 
 RUN addgroup testssl && \
   adduser -G testssl -g "testssl user"  -s /bin/bash -D testssl && \
@@ -25,8 +30,6 @@ RUN addgroup testssl && \
 
 USER testssl
 WORKDIR /home/testssl/
-
-RUN git clone --depth=1 https://github.com/drwetter/testssl.sh.git .
 
 ENTRYPOINT ["testssl.sh"]
 CMD ["--help"]
