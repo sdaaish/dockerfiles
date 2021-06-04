@@ -10,12 +10,17 @@
 # -e CENSYS_API_SECRET=<api_secret> \
 # sdaaish/censys_subdomain_finder <domain-name>
  
-FROM alpine:latest
-
+FROM alpine:latest AS build
 RUN apk add --update --no-cache \
-  python3 py3-pip
+    git && \
+    git clone https://github.com/christophetd/censys-subdomain-finder.git /src
 
-COPY src/requirements.txt src/*.py /app/
+FROM alpine:latest
+COPY --from=build src/ /app/
+RUN apk add --update --no-cache \
+    python3 \
+    py3-pip
+
 WORKDIR /app
 
 RUN pip install -r requirements.txt --no-cache-dir
