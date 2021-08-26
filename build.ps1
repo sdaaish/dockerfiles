@@ -4,6 +4,7 @@ Param(
     $Path,
     [switch]$Quiet
 )
+Import-Module $PSScriptRoot/modules/docker-ci/Source/Docker-CI.psd1 -Force
 
 if (!$Path ){
     $Path = $PSScriptRoot

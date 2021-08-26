@@ -1,0 +1,3 @@
+[submodule "modules/docker-ci"]
+	path = modules/docker-ci
+	url = git@github.com:sdaaish/docker-ci.git
