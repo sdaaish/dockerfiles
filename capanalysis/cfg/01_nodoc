@@ -1,0 +1,15 @@
+# Remove doc and man pages
+path-exclude /usr/share/doc/*
+
+#  keep copyright files for legal reasons
+path-include /usr/share/doc/*/copyright
+
+# no docs or man pages
+path-exclude /usr/share/man/*
+path-exclude /usr/share/groff/*
+path-exclude /usr/share/info/*
+
+# Other packages
+path-exclude /usr/share/lintian/*
+path-exclude /usr/share/linda/*
+path-exclude /usr/share/postgresql/10/man/*
