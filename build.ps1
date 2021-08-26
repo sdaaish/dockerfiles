@@ -13,7 +13,7 @@ else {
     $Path = Split-Path $(Resolve-Path $Path) -Leaf
 }
 
-[array]$dockerfile = Get-ChildItem -Recurse -Path $Path -Filter "Dockerfile" -File
+[array]$dockerfile = Get-ChildItem -Recurse -Path $Path -Filter "Dockerfile" -File -Depth 1
 
 if ($PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent){
     Write-Verbose "Building these files."
@@ -83,8 +83,8 @@ foreach($file in $dockerfile.GetEnumerator()){
         if ($PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent){
             Write-Verbose "Pushing image"
             $PushOptions
-    }
-    $PushResult = Invoke-DockerPush @PushOptions
+        }
+        $PushResult = Invoke-DockerPush @PushOptions
     }
     else {
         write-Error "Tag failed."
