@@ -78,6 +78,7 @@ RUN dpkg --install /root/capanalysis.deb && \
     apt-get clean --yes && \
     apt-get autoremove --yes && \
     rm -f /root/capanalysis.deb && \
+    chmod a+x /root/bin/* && \
     bash -c /root/bin/cleanup.sh && \
     rm -rf /var/lib/apt/lists*
 
