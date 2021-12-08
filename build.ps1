@@ -1,17 +1,29 @@
-#Require Docker-CI
 [cmdletbinding()]
 Param(
-    $Path,
+    $Path = $PSScriptRoot,
+
     [switch]$Quiet
 )
-Import-Module $PSScriptRoot/modules/docker-ci/Source/Docker-CI.psd1 -Force
+try {
+    $(Resolve-Path $PSScriptRoot/modules/docker-ci -ErrorAction Stop)
+}
+catch {
+    Write-Error "No module installed, downloading..."
+    git submodule update --init
+    git submodule sync
+}
+finally {
+    Import-Module -Name $(Resolve-Path $PSScriptRoot/modules/docker-ci/Source/Docker-CI.psd1) -Force
+}
 
-if (!$Path ){
-    $Path = $PSScriptRoot
+try {
+    $Path = Resolve-Path $Path -ErrorAction Stop
 }
-else {
-    $Path = Split-Path $(Resolve-Path $Path) -Leaf
+catch {
+    throw "No such file, ${Path}"
 }
+
+Write-Verbose "Building ${Path}"
 
 [array]$dockerfile = Get-ChildItem -Recurse -Path $Path -Filter "Dockerfile" -File -Depth 1
 
@@ -38,6 +50,8 @@ foreach($file in $dockerfile.GetEnumerator()){
         $version = "latest"
     }
 
+    Write-Verbose "Version=${version}"
+
     # Build options
     $BuildOptions = @{
         Context = Split-Path $file.DirectoryName -Leaf
@@ -48,8 +62,7 @@ foreach($file in $dockerfile.GetEnumerator()){
     }
 
     if ($PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent){
-        Write-Verbose "Building..."
-        $BuildOptions
+        Write-Verbose "Building...: $(${BuildOptions}.Dockerfile)"
     }
 
     $BuildResult = Invoke-DockerBuild @BuildOptions
@@ -63,11 +76,10 @@ foreach($file in $dockerfile.GetEnumerator()){
         }
 
         if ($PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent){
-            Write-Verbose "Tagging image"
-            $TagOptions
+            Write-Verbose "Tagging image: ${TagOptions}.NewImageName ${TagOptions}.NewTag"
         }
 
-        $tagresult = Invoke-DockerTag @TagOptions
+        $TagResult = Invoke-DockerTag @TagOptions
     }
     else {
         Write-Error "Build failed."
@@ -81,13 +93,12 @@ foreach($file in $dockerfile.GetEnumerator()){
         }
 
         if ($PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent){
-            Write-Verbose "Pushing image"
-            $PushOptions
+            Write-Verbose "Pushing image ${PushOptions}.ImageName ${PushOptions}.Tag"
         }
         $PushResult = Invoke-DockerPush @PushOptions
     }
     else {
-        write-Error "Tag failed."
+        Write-Error "Tag failed."
         $TagResult
     }
 }
