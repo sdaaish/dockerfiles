@@ -68,7 +68,7 @@ RUN ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && \
 
 # Download the package
 FROM base as src
-RUN curl -o /root/capanalysis.deb "https://pilotfiber.dl.sourceforge.net/project/capanalysis/version%20${VERSION}/capanalysis_${VERSION}_amd64.deb"
+RUN curl -o /root/capanalysis.deb "https://deac-ams.dl.sourceforge.net/project/capanalysis/version%20${VERSION}/capanalysis_${VERSION}_amd64.deb"
 
 # Install package and dependencies
 FROM src as app
