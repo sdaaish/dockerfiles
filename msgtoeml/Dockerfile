@@ -1,9 +1,9 @@
-FROM ubuntu:18.04 AS build
+FROM ubuntu:24.04 AS build
 
 RUN apt-get update && \
-    apt-get install --yes --no-install-recommends \
+    apt-get install --yes \
     libemail-outlook-message-perl \
-    libemail-sender-perl && \
+    libemail-localdelivery-perl && \
     useradd -U msg
 
 FROM build
